@@ -1,3 +1,4 @@
+#%%
 matrix = [
 [8, 2, 22, 97, 38, 15, 0, 40, 0, 75, 4, 5, 7, 78, 52, 12, 50, 77, 91, 8],
 [49, 49, 99, 40, 17, 81, 18, 57, 60, 87, 17, 40, 98, 43, 69, 48, 4, 56, 62, 0],
@@ -20,6 +21,8 @@ matrix = [
 [20, 73, 35, 29, 78, 31, 90, 1, 74, 31, 49, 71, 48, 86, 81, 16, 23, 57, 5, 54],
 [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]
 ]
+
+#%%
 
 
 ## def isValidPos(row, col, maxrow, maxcol):
@@ -139,3 +142,40 @@ for row in range(len(matrix)):
             bestofbest_flow = curr_flow
 
 print(f"highest multiplication: {best_mult}\nbest flow: {bestofbest_flow}")
+
+
+
+
+# %%
+grid = matrix
+max_product = 0  # Variable to store the maximum product
+
+# Iterate over rows and columns
+for i in range(len(grid)):
+    print(i)
+    for j in range(len(grid[i])):
+        # Calculate product in horizontal direction
+        if j + 3 < len(grid[i]):
+            if j + 3 < len(grid[i]):
+                product = grid[i][j] * grid[i][j + 1] * grid[i][j + 2] * grid[i][j + 3]
+                max_product = max(max_product, product)
+
+        # Calculate product in vertical direction
+        if i + 3 < len(grid):
+            product = grid[i][j] * grid[i + 1][j] * grid[i + 2][j] * grid[i + 3][j]
+            max_product = max(max_product, product)
+
+        # Calculate product in diagonal (down-right) direction
+        if i + 3 < len(grid) and j + 3 < len(grid[i]):
+            product = grid[i][j] * grid[i + 1][j + 1] * grid[i + 2][j + 2] * grid[i + 3][j + 3]
+            max_product = max(max_product, product)
+
+        # Calculate product in diagonal (up-right) direction
+        if i >= 3 and j + 3 < len(grid[i]):
+            product = grid[i][j] * grid[i - 1][j + 1] * grid[i - 2][j + 2] * grid[i - 3][j + 3]
+            max_product = max(max_product, product)
+
+print("The greatest product of four adjacent numbers in the grid is:", max_product)
+
+
+# %%
